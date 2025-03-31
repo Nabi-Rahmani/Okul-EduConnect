@@ -17,12 +17,13 @@ app_description                           : Fast & Simple English-Persian-Turkis
 
 enable_smart_app_banner                   : true                                      # Set to true to show a smart app banner at top of page on mobile devices.
 
-
+canonical_url                             : https://fluttertips.dev
+og_image                                  : https://fluttertips.dev/assets/social-media-banner.png
 
 # Information About Yourself
 your_name                                 : Nabi Rahmani                                
 # your_link                                 : https://emilbaehr.com                     
-your_city                                 : Istanbul                                
+# your_city                                 : Istanbul                                
 email_address                             : nabi007.dev@gmail.com
 # facebook_username                         :                                           
 # instagram_username                        : ebaehr
@@ -75,7 +76,7 @@ device_color                              : black                               
 
 body_background_color                     : "#ffffff"
 
-link_color                                : "#1c63ea"
+link_color                                : "#d53953"
 
 app_title_color                           : "#ffffff"
 app_price_color                           : "#ffffff"
@@ -84,11 +85,11 @@ app_description_color                     : "#ffffff"
 feature_title_color                       : "#000000"
 feature_text_color                        : "#666666"
 
-feature_icons_foreground_color            : "#1d63ea"
+feature_icons_foreground_color            : "#d53953"
 feature_icons_background_color            : "#e6e6e6"
 
-social_icons_foreground_color             : "#e6e6e6"
-social_icons_background_color             : "#1d63ea"
+social_icons_foreground_color             : "#d53953"
+social_icons_background_color             : "#ffffff"
 
 footer_text_color                         : "#666666"
 
