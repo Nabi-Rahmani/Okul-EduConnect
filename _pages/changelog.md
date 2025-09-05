@@ -10,7 +10,7 @@ include_in_header: false
 **Release Date**: March 31, 2025  
 
 ### What's New:
-- Initial release of the Okul Dictionary App.
+- Initial release of the Alfaz Dictionary App.
 - Core features include:
   - **Search Functionality**: Search for words from a JSON database.
   - **Favorites**: Save and manage favorite words using Riverpod and Hive.
