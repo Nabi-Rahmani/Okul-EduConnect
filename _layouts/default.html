@@ -4,12 +4,41 @@
 {% include head.html %}
 
 <body>
-    <div class="imageWrapper">
-        <div class="headerBackground">
-            <div class="container">
-                {% include header.html %}
-                <div class="iphonePreview">
+    <div id="cursor" class="cursor-dot bg-slate-900/70 dark:bg-white/70"></div>
 
+    <!-- Navigation Header -->
+    <nav class="modern-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="{{ site.app_icon | relative_url }}" alt="{{ site.app_name }}" class="nav-icon">
+                <span class="nav-title">{{ site.app_name }}</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Modern Hero Section -->
+    <section class="modern-hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title fade-in-up">{{ site.app_name }} - one tap dictionary</h1>
+                <p class="hero-subtitle fade-in-up delay-1">{{ site.app_description }}</p>
+
+                <div class="modern-buttons fade-in-up delay-2">
+                    <div class="relative" data-magnet>
+                        <a href="{{site.appstore_link}}" class="magnet store-button">
+                            <img src="assets/appstore.png" alt="Download on the App Store" class="store-button-img">
+                        </a>
+                    </div>
+                    <div class="relative" data-magnet>
+                        <a href="{{site.playstore_link}}" class="magnet store-button">
+                            <img src="assets/playstore.png" alt="Get it on Google Play" class="store-button-img">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-phone fade-in-up delay-3">
+                <div class="phone-container floating" data-tilt>
                     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 0 0" style="position: absolute;">
                         <clipPath id="screenMask" clipPathUnits="objectBoundingBox" transform="scale(0.00257, 0.00119)">
@@ -19,55 +48,94 @@
                         </clipPath>
                     </svg>
 
-                    <div class="videoContainer hidden">
-                        <video class="screenvideo" autoplay="autoplay" controls="controls">
-                        </video>
-                    </div>
-
-                    <img class="iphoneScreen hidden" src="" alt="">
-
-                    {% include screencontent.html %}
-
-                </div>
-                <div class="appInfo">
-                    <div class="appIconShadow">
-                        <svg width="0" height="0">
-                            <defs>
-                                <clipPath id="shape120">
-                                    <path id="shape" class="cls-1"
-                                        d="M6821,495.533v-4.281c0-1.2-.04-2.4-0.04-3.642a57.7,57.7,0,0,0-.68-7.882,26.144,26.144,0,0,0-2.48-7.483,25.115,25.115,0,0,0-11.04-11.044,26.118,26.118,0,0,0-7.49-2.481,47.28,47.28,0,0,0-7.88-.68c-1.2-.04-2.4-0.04-3.64-0.04h-53.5c-1.2,0-2.4.04-3.64,0.04a57.813,57.813,0,0,0-7.88.68,26.323,26.323,0,0,0-7.49,2.481,25.115,25.115,0,0,0-11.04,11.044,26.144,26.144,0,0,0-2.48,7.483,47.313,47.313,0,0,0-.68,7.882c-0.04,1.2-.04,2.4-0.04,3.642v53.5c0,1.2.04,2.4,0.04,3.641a57.7,57.7,0,0,0,.68,7.883,26.137,26.137,0,0,0,2.48,7.482,25.115,25.115,0,0,0,11.04,11.044,26.261,26.261,0,0,0,7.49,2.481,47.28,47.28,0,0,0,7.88.68c1.2,0.04,2.4.04,3.64,0.04h53.5c1.2,0,2.4-.04,3.64-0.04a57.654,57.654,0,0,0,7.88-.68,26.057,26.057,0,0,0,7.49-2.481,25.115,25.115,0,0,0,11.04-11.044,26.137,26.137,0,0,0,2.48-7.482,47.316,47.316,0,0,0,.68-7.883c0.04-1.2.04-2.4,0.04-3.641V495.533h0Z"
-                                        transform="translate(-6701 -458)" filter="url(#f1)" />
-                                </clipPath>
-                            </defs>
-                        </svg>
-                        <img class="appIconLarge" src="{{ site.app_icon | relative_url }}">
-                    </div>
-                    <div class="appNamePriceContainer">
-                        <h1 class="appName">
-                            {{ site.app_name }}
-                        </h1>
-                        <h2 class="appPrice">
-                            {{ site.app_price }}
-                        </h2>
-                    </div>
-                    <div class="appDescriptionContainer">
-                        <p class="appDescription">
-                            {{ site.app_description }}
-                        </p>
-                    </div>
-                    <div class="downloadButtonsContainer">
-                        <a class="playStoreLink" href="{{site.playstore_link}}"><img class="playStore"
-                                src="assets/playstore.png"></a>
-                        <a class="appStoreLink" href="{{site.appstore_link}}"><img class="appStore"
-                                src="assets/appstore.png"></a>
+                    <div class="phone-frame">
+                        <div class="videoContainer hidden">
+                            <video class="screenvideo" autoplay="autoplay" controls="controls">
+                            </video>
+                        </div>
+                        <img class="iphoneScreen" src="assets/screenshot/yourscreenshot.png" alt="App Screenshot">
+                        {% include screencontent.html %}
                     </div>
                 </div>
-                {% include features.html %}
-                {% include footer.html %}
-                {% include appstoreimages.html %}
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Modern Features Section -->
+    <section class="modern-features">
+        <div class="features-grid">
+            {% for feature in site.features %}
+            {% if feature.title %}
+            <div class="modern-feature-card">
+                <div style="display: flex; align-items: flex-start; margin-bottom: 1rem;">
+                    <div
+                        style="background: linear-gradient(135deg, #dc2626, #b91c1c); width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-right: 1rem; flex-shrink: 0;">
+                        <i class="fas fa-{{ feature.fontawesome_icon_name }}"
+                            style="color: white; font-size: 20px;"></i>
+                    </div>
+                    <div>
+                        <h3 style="color: #1f2937; font-size: 1.25rem; font-weight: 700; margin: 0 0 0.5rem 0;">{{
+                            feature.title }}</h3>
+                        <p style="color: #6b7280; margin: 0; line-height: 1.6;">{{ feature.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </section>
+
+    {% include footer.html %}
+
+    <script>
+        // ---- Cursor dot ----
+        (function () {
+            const dot = document.getElementById('cursor');
+            let x = window.innerWidth / 2, y = window.innerHeight / 2, tx = x, ty = y;
+            const lerp = (a, b, n) => a + (b - a) * n;
+            function raf() {
+                x = lerp(x, tx, 0.2); y = lerp(y, ty, 0.2);
+                dot.style.transform = `translate(${x - 5}px,${y - 5}px)`;
+                requestAnimationFrame(raf);
+            }
+            window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+            document.addEventListener('mouseover', e => {
+                if (e.target.closest('a,button')) dot.style.transform += ' scale(1.6)';
+            });
+            document.addEventListener('mouseout', e => {
+                if (e.target.closest('a,button')) dot.style.transform = `translate(${x - 5}px,${y - 5}px)`;
+            });
+            raf();
+        })();
+
+        // ---- Magnetic button ----
+        (function () {
+            document.querySelectorAll('[data-magnet]').forEach(wrap => {
+                const btn = wrap.querySelector('.magnet');
+                wrap.addEventListener('mousemove', e => {
+                    const r = wrap.getBoundingClientRect();
+                    const dx = (e.clientX - (r.left + r.width / 2)) * 0.08;
+                    const dy = (e.clientY - (r.top + r.height / 2)) * 0.08;
+                    btn.style.transform = `translate(${dx}px,${dy}px)`;
+                });
+                wrap.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0,0)'; });
+            });
+        })();
+
+        // ---- Tilt ----
+        (function () {
+            document.querySelectorAll('[data-tilt]').forEach(el => {
+                const max = 6;
+                el.addEventListener('mousemove', e => {
+                    const r = el.getBoundingClientRect();
+                    const px = (e.clientX - r.left) / r.width - 0.5;
+                    const py = (e.clientY - r.top) / r.height - 0.5;
+                    el.style.transform = `rotateX(${(-py * max)}deg) rotateY(${(px * max)}deg)`;
+                });
+                el.addEventListener('mouseleave', () => { el.style.transform = 'rotateX(0) rotateY(0)'; });
+            });
+        })();
+    </script>
 </body>
 
 </html>

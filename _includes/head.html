@@ -16,7 +16,516 @@
 	<meta name="apple-itunes-app" content="app-id={{ site.ios_app_id }}">
 	{% endif %}
 
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
 		integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<link rel="stylesheet" href="{{ '/main.css' | relative_url }}">
+	<style>
+		html {
+			font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+			scroll-behavior: smooth;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+			overflow-x: hidden;
+		}
+
+		.cursor-dot {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 10px;
+			height: 10px;
+			border-radius: 9999px;
+			pointer-events: none;
+			z-index: 1000;
+			transform: translate(-50%, -50%);
+			transition: background-color .2s ease;
+		}
+
+		.bg-slate-900\/70 {
+			background-color: rgba(220, 38, 38, 0.7);
+		}
+
+		.dark\:bg-white\/70 {
+			background-color: rgba(255, 255, 255, 0.7);
+		}
+
+		.magnet {
+			transition: transform 0.1s ease;
+		}
+
+		.hover\:-translate-y-1:hover {
+			transform: translateY(-4px);
+		}
+
+		.hover\:shadow-xl:hover {
+			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		}
+
+		.transition {
+			transition: all 0.3s ease;
+		}
+
+		.will-change-transform {
+			will-change: transform;
+		}
+
+		.rounded-2xl {
+			border-radius: 1rem;
+		}
+
+		.rounded-3xl {
+			border-radius: 1.5rem;
+		}
+
+		.px-6 {
+			padding-left: 1.5rem;
+			padding-right: 1.5rem;
+		}
+
+		.py-3 {
+			padding-top: 0.75rem;
+			padding-bottom: 0.75rem;
+		}
+
+		.text-white {
+			color: white;
+		}
+
+		.bg-gradient-to-r {
+			background-image: linear-gradient(to right, var(--tw-gradient-stops));
+		}
+
+		.from-violet-600 {
+			--tw-gradient-from: #dc2626;
+			--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(220, 38, 38, 0));
+		}
+
+		.to-indigo-600 {
+			--tw-gradient-to: #b91c1c;
+		}
+
+		.shadow-lg {
+			box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+		}
+
+		.ring-1 {
+			box-shadow: 0 0 0 1px var(--tw-ring-color);
+		}
+
+		.ring-black\/10 {
+			--tw-ring-color: rgba(0, 0, 0, 0.1);
+		}
+
+		.hover\:shadow-xl:hover {
+			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		}
+
+		.p-4 {
+			padding: 1rem;
+		}
+
+		.shadow-xl {
+			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+		}
+
+		.p-6 {
+			padding: 1.5rem;
+		}
+
+		.border {
+			border-width: 1px;
+			border-color: rgba(220, 38, 38, 0.1);
+		}
+
+		.feature {
+			background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+		}
+
+		.feature:hover {
+			background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+		}
+
+		/* Enhanced app icon styling */
+		.appIconLarge {
+			filter: drop-shadow(0 10px 20px rgba(220, 38, 38, 0.3));
+			transition: transform 0.3s ease;
+		}
+
+		.appIconLarge:hover {
+			transform: scale(1.05);
+		}
+
+		/* Enhanced download buttons */
+		.downloadButtonsContainer {
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+			align-items: center;
+		}
+
+		/* Better typography */
+		.appName {
+			background: linear-gradient(135deg, #dc2626, #b91c1c);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+			font-weight: 800;
+		}
+
+		/* Modern Hero Section Styling - Inspired by Lyfe */
+		.modern-hero {
+			min-height: 100vh;
+			background: linear-gradient(135deg, #fafafa 0%, #f3f4f6 50%, #e5e7eb 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 2rem;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.modern-hero::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: radial-gradient(circle at 30% 20%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+				radial-gradient(circle at 70% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 50%);
+			pointer-events: none;
+		}
+
+		.hero-container {
+			max-width: 1200px;
+			width: 100%;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
+			align-items: center;
+			z-index: 1;
+		}
+
+		.hero-content {
+			padding: 2rem 0;
+		}
+
+		.hero-title {
+			font-size: 3.5rem;
+			font-weight: 800;
+			line-height: 1.1;
+			margin-bottom: 1rem;
+			color: #1f2937;
+		}
+
+		.hero-subtitle {
+			font-size: 1.25rem;
+			color: #6b7280;
+			margin-bottom: 2rem;
+			line-height: 1.6;
+			max-width: 500px;
+		}
+
+		.hero-phone {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+		}
+
+		.phone-container {
+			position: relative;
+			transform: perspective(1000px) rotateY(-15deg) rotateX(5deg);
+			transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		.phone-container:hover {
+			transform: perspective(1000px) rotateY(-10deg) rotateX(2deg) scale(1.02);
+		}
+
+		.modern-buttons {
+			display: flex;
+			gap: 1.5rem;
+			margin-top: 2rem;
+			align-items: center;
+		}
+
+		.modern-btn {
+			display: inline-flex;
+			align-items: center;
+			padding: 1rem 2rem;
+			border-radius: 1rem;
+			font-weight: 600;
+			text-decoration: none;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.btn-primary {
+			background: linear-gradient(135deg, #dc2626, #b91c1c);
+			color: white;
+			box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+		}
+
+		.btn-primary:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4);
+		}
+
+		.btn-secondary {
+			background: white;
+			color: #374151;
+			border: 2px solid #e5e7eb;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		}
+
+		.btn-secondary:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+			border-color: #dc2626;
+		}
+
+		/* Store Button Styling */
+		.store-button {
+			display: inline-block;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			border-radius: 12px;
+			overflow: hidden;
+			filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+		}
+
+		.store-button:hover {
+			transform: translateY(-3px) scale(1.05);
+			filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.2));
+		}
+
+		.store-button-img {
+			height: 60px;
+			width: auto;
+			display: block;
+			transition: all 0.3s ease;
+		}
+
+		.store-button:hover .store-button-img {
+			transform: scale(1.02);
+		}
+
+		/* Floating Animation */
+		@keyframes float {
+
+			0%,
+			100% {
+				transform: translateY(0px);
+			}
+
+			50% {
+				transform: translateY(-10px);
+			}
+		}
+
+		.floating {
+			animation: float 3s ease-in-out infinite;
+		}
+
+		/* Fade in animations */
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.fade-in-up {
+			animation: fadeInUp 0.8s ease-out forwards;
+		}
+
+		.delay-1 {
+			animation-delay: 0.2s;
+			opacity: 0;
+		}
+
+		.delay-2 {
+			animation-delay: 0.4s;
+			opacity: 0;
+		}
+
+		.delay-3 {
+			animation-delay: 0.6s;
+			opacity: 0;
+		}
+
+		/* Modern Feature Cards */
+		.modern-features {
+			background: white;
+			padding: 5rem 2rem;
+		}
+
+		.features-grid {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 2rem;
+		}
+
+		.modern-feature-card {
+			background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+			border: 1px solid rgba(220, 38, 38, 0.1);
+			border-radius: 1.5rem;
+			padding: 2rem;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.modern-feature-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 3px;
+			background: linear-gradient(90deg, #dc2626, #b91c1c);
+			transform: scaleX(0);
+			transition: transform 0.3s ease;
+		}
+
+		.modern-feature-card:hover::before {
+			transform: scaleX(1);
+		}
+
+		.modern-feature-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 20px 40px rgba(220, 38, 38, 0.15);
+			background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+		}
+
+		/* Navigation Header */
+		.modern-nav {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 100;
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			border-bottom: 1px solid rgba(220, 38, 38, 0.1);
+			padding: 1rem 0;
+		}
+
+		.nav-container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 2rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.nav-brand {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		.nav-icon {
+			width: 40px;
+			height: 40px;
+			border-radius: 8px;
+			filter: drop-shadow(0 2px 8px rgba(220, 38, 38, 0.3));
+		}
+
+		.nav-title {
+			font-size: 1.25rem;
+			font-weight: 700;
+			color: #1f2937;
+		}
+
+		/* Phone Frame Styling */
+		.phone-frame {
+			background-image: url('assets/black.png');
+			background-size: 400px auto;
+			background-repeat: no-repeat;
+			position: relative;
+			width: 400px;
+			height: 800px;
+		}
+
+		.iphoneScreen {
+			width: 349px;
+			height: 755px;
+			-webkit-clip-path: url(#screenMask);
+			clip-path: url(#screenMask);
+			margin-left: 26px;
+			margin-top: 23px;
+			object-fit: cover;
+			border-radius: 25px;
+		}
+
+		/* Adjust hero section for nav */
+		.modern-hero {
+			padding-top: 5rem;
+		}
+
+		/* Responsive Design */
+		@media (max-width: 768px) {
+			.hero-container {
+				grid-template-columns: 1fr;
+				gap: 2rem;
+			}
+
+			.hero-title {
+				font-size: 2.5rem;
+			}
+
+			.hero-subtitle {
+				font-size: 1.1rem;
+			}
+
+			.modern-buttons {
+				flex-direction: column;
+				align-items: center;
+				gap: 1rem;
+			}
+
+			.store-button-img {
+				height: 50px;
+			}
+
+			.phone-container {
+				transform: none;
+			}
+
+			.phone-container:hover {
+				transform: scale(1.02);
+			}
+
+			.phone-frame {
+				background-size: 300px auto;
+				width: 300px;
+				height: 600px;
+			}
+
+			.iphoneScreen {
+				width: 262px;
+				height: 566px;
+				margin-left: 19px;
+				margin-top: 17px;
+			}
+
+			.nav-container {
+				padding: 0 1rem;
+			}
+		}
+	</style>
 </head>
